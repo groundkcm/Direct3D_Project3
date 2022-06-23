@@ -28,6 +28,7 @@ struct VS_INPUT
 {
 	float3 position : POSITION;
 	float3 normal : NORMAL;
+	float4 colorO : COLOR;
 };
 
 struct VS_OUTPUT
@@ -48,9 +49,10 @@ VS_OUTPUT VSLighting(VS_INPUT input)
 	output.positionH = mul(mul(float4(output.positionW, 1.0f), gmtxView), gmtxProjection);
 	float3 normalW = mul(input.normal, (float3x3)gmtxGameObject);
 #ifdef _WITH_VERTEX_LIGHTING
-	output.color = Lighting(output.positionW, normalize(normalW));
-	output.color = float4(0.5f * normalize(gvCameraPosition - output.positionW) + 0.5f, 1.0f);
+	output.color = input.colorO + Lighting(output.positionW, normalize(normalW));
+//	output.color = float4(0.5f * normalize(gvCameraPosition - output.positionW) + 0.5f, 1.0f);
 #else
+//	output.color = input.colorO;
 	output.normalW = normalW;
 #endif
 
