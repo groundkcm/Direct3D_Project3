@@ -361,14 +361,16 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			ChangeSwapChainState();
 			break;
 		case '2':
-			if (m_pScene->SceneNum == 2)
-				ChangeScene(m_pd3dDevice, m_pd3dCommandList, 1);
-			m_pScene->SceneNum = 1;
+			if (m_pScene->SceneNum == 1) {
+				ChangeScene(m_pd3dDevice, m_pd3dCommandList, 2);
+				m_pScene->SceneNum = 2;
+			}
 			break;
 		case '1':
-			if (m_pScene->SceneNum == 1)
-				ChangeScene(m_pd3dDevice, m_pd3dCommandList, 2);
-			m_pScene->SceneNum = 2;
+			if (m_pScene->SceneNum == 2) {
+				ChangeScene(m_pd3dDevice, m_pd3dCommandList, 1);
+				m_pScene->SceneNum = 1;
+			}
 			break;
 		case 'N':
 			if (ntemp % 2) m_pScene->NightMode = true;

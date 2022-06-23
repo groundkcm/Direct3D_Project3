@@ -75,7 +75,7 @@ public:
 	CPlayer						*m_pPlayer = NULL;
 	bool						NightMode = false;
 	bool						DayMode = false;
-	int							SceneNum = 2;
+	int							SceneNum = 1;
 
 protected:
 	ID3D12RootSignature			*m_pd3dGraphicsRootSignature = NULL;
