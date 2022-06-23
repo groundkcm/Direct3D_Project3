@@ -127,6 +127,10 @@ public:
 	UINT							m_nMaterials = 0; 
 	CMaterial						**m_ppMaterials = NULL;
 
+	BoundingOrientedBox				m_xmOOBB = BoundingOrientedBox();
+	CGameObject						*m_pObjectCollided = NULL;
+	bool							m_pPlayerCollided = false;
+
 protected:
 	ID3D12Resource					*m_pd3dcbGameObject = NULL;
 

@@ -107,14 +107,24 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
-void CScene::ChangeScene(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, int sceneNum)
+void CScene::ChangeScene(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, WPARAM sceneNum)
 {
+	/*ReleaseUploadBuffers();
+	ReleaseObjects();
+	m_ppShaders = new CShader * [m_nShaders];*/
+
 	CObjectsShader* pObjectShader = new CObjectsShader();
-	if (sceneNum == 1)
-		pObjectShader->BuildObjects(pd3dDevice, pd3dCommandList, "Models/Scene.bin");
+	pObjectShader->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
+	/*if (sceneNum == 1)
+		pObjectShader->ChangeScene(pd3dDevice, pd3dCommandList, "Models/Scene.bin");
 	else 
-		pObjectShader->BuildObjects(pd3dDevice, pd3dCommandList, "Models/Scene2.bin");
+		pObjectShader->ChangeScene(pd3dDevice, pd3dCommandList, "Models/Scene2.bin");*/
+	pObjectShader->ChangeScene(pd3dDevice, pd3dCommandList, "Models/Scene.bin");
 	m_ppShaders[0] = pObjectShader;
+
+	BuildLightsAndMaterials();
+
+	UpdateShaderVariables(pd3dCommandList);
 }
 
 void CScene::ReleaseObjects()

@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "GameFramework.h"
+#include <vector>
 
 CGameFramework::CGameFramework()
 {
@@ -448,6 +449,19 @@ void CGameFramework::BuildObjects()
 	if (m_pPlayer) m_pPlayer->ReleaseUploadBuffers();
 
 	m_GameTimer.Reset();
+}
+
+std::vector<CPlayer*> v;
+void CGameFramework::Collision()
+{
+	static int cnt;
+	if (!cnt) {
+		v.push_back(m_pPlayer);
+		cnt = 1;
+	}
+	m_pPlayer->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_pPlayer->GetPosition()), XMFLOAT3(20.0f, 20.0f, 4.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pPlayer->m_pObjectCollided = NULL;
+	v[0] = m_pPlayer;
 }
 
 void CGameFramework::ReleaseObjects()
