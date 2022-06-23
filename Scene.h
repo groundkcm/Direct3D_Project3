@@ -54,6 +54,7 @@ public:
 
 	void BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList);
 	void ReleaseObjects();
+	void ChangeScene(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, int sceneNum);
 
 	void BuildLightsAndMaterials();
 

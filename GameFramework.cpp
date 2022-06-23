@@ -357,8 +357,9 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_F9:
 			ChangeSwapChainState();
 			break;
-		case VK_NUMPAD1:
-
+		//case VK_NUMPAD1:
+		case '1':
+			m_pScene->ChangeScene(m_pd3dDevice, m_pd3dCommandList, wParam);
 			break;
 		default:
 			break;

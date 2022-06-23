@@ -107,6 +107,16 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
+void CScene::ChangeScene(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, int sceneNum)
+{
+	CObjectsShader* pObjectShader = new CObjectsShader();
+	if (sceneNum == 1)
+		pObjectShader->BuildObjects(pd3dDevice, pd3dCommandList, "Models/Scene.bin");
+	else 
+		pObjectShader->BuildObjects(pd3dDevice, pd3dCommandList, "Models/Scene2.bin");
+	m_ppShaders[0] = pObjectShader;
+}
+
 void CScene::ReleaseObjects()
 {
 	if (m_pd3dGraphicsRootSignature) m_pd3dGraphicsRootSignature->Release();

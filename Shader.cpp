@@ -294,6 +294,13 @@ void CObjectsShader::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsComman
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
+void CObjectsShader::ChangeScene(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, char* pstrFileName)
+{
+	m_ppObjects = ::LoadGameObjectsFromFile(pd3dDevice, pd3dCommandList, pstrFileName, &m_nObjects);
+
+	CreateShaderVariables(pd3dDevice, pd3dCommandList);
+}
+
 void CObjectsShader::ReleaseObjects()
 {
 	if (m_ppObjects)
