@@ -379,9 +379,9 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			++ntemp;
 			break;
 		case 'R':
-			if (rtemp % 2) m_pPlayer->SetPosition(XMFLOAT3(90.0f, 5.0f, 45.0f));		//1ÀÎÄª ¹Ù´Ú ±âÁØ
-			else  m_pPlayer->SetPosition(XMFLOAT3(160.0f, 50.0f, -10.0f));		//1ÀÎÄª ÇÏ´Ã ±âÁØ
 			++rtemp;
+			if (rtemp % 2) m_pPlayer->SetPosition(XMFLOAT3(90.0f, 5.0f, 55.0f));		//1ÀÎÄª ¹Ù´Ú ±âÁØ
+			else  m_pPlayer->SetPosition(XMFLOAT3(160.0f, 50.0f, 0.0f));		//1ÀÎÄª ÇÏ´Ã ±âÁØ
 			break;
 		default:
 			break;
@@ -458,8 +458,8 @@ void CGameFramework::BuildObjects(int sceneNum)
 
 	CAirplanePlayer *pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
 	m_pScene->m_pPlayer = m_pPlayer = pAirplanePlayer;
-	m_pPlayer->Rotate(0.0f, -90.0f, 0.0f);
 	m_pCamera = m_pPlayer->GetCamera();
+	m_pPlayer->Rotate(0.0f, -90.0f, 0.0f);
 
 	m_pd3dCommandList->Close();
 	ID3D12CommandList *ppd3dCommandLists[] = { m_pd3dCommandList };
@@ -483,7 +483,7 @@ extern std::vector<CGameObject*> v;
 
 void CGameFramework::Collision()
 {
-	m_pPlayer->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_pPlayer->GetPosition()), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pPlayer->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_pPlayer->GetPosition()), XMFLOAT3(0.5f, 0.5f, 0.5f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->m_pObjectCollided = NULL;
 
 	for (int i = 0; i < v.size(); ++i) {
@@ -514,8 +514,8 @@ void CGameFramework::ProcessInput()
 		if (pKeysBuffer['S'] & 0xF0) dwDirection |= DIR_BACKWARD;
 		if (pKeysBuffer['A'] & 0xF0) dwDirection |= DIR_LEFT;
 		if (pKeysBuffer['D'] & 0xF0) dwDirection |= DIR_RIGHT;
-		if (pKeysBuffer['E'] & 0xF0) dwDirection |= DIR_UP;
-		if (pKeysBuffer['Q'] & 0xF0) dwDirection |= DIR_DOWN;
+		//if (pKeysBuffer['E'] & 0xF0) dwDirection |= DIR_UP;
+		//if (pKeysBuffer['Q'] & 0xF0) dwDirection |= DIR_DOWN;
 	}
 
 	float cxDelta = 0.0f, cyDelta = 0.0f;
