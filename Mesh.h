@@ -55,7 +55,7 @@ protected:
 	UINT							m_nStartIndex = 0;
 	int								m_nBaseVertex = 0;
 
-	BoundingBox						m_xmBoundingBox;
+	BoundingOrientedBox				m_xmBoundingBox = BoundingOrientedBox();
 
 public:
 	UINT							m_nSubsets = 0;

@@ -130,6 +130,7 @@ public:
 	BoundingOrientedBox				m_xmOOBB = BoundingOrientedBox();
 	CGameObject						*m_pObjectCollided = NULL;
 	bool							m_pPlayerCollided = false;
+	XMFLOAT3						m_xmf3objectsize;
 
 protected:
 	ID3D12Resource					*m_pd3dcbGameObject = NULL;

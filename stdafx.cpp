@@ -3,6 +3,7 @@
 // stdafx.obj에는 미리 컴파일된 형식 정보가 포함됩니다.
 
 #include "stdafx.h"
+#include <vector>
 
 // TODO: 필요한 추가 헤더는
 // 이 파일이 아닌 STDAFX.H에서 참조합니다.
@@ -88,6 +89,9 @@ ID3D12Resource *CreateBufferResource(ID3D12Device *pd3dDevice, ID3D12GraphicsCom
 	return(pd3dBuffer);
 }
 
+extern XMFLOAT3 ObjectSize;
+std::vector<CGameObject*> v;
+
 CGameObject **LoadGameObjectsFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, char *pstrFileName, int *pnGameObjects)
 {
 	FILE *pFile = NULL;
@@ -107,6 +111,7 @@ CGameObject **LoadGameObjectsFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCo
 	nReads = (UINT)::fread(pnGameObjects, sizeof(int), 1, pFile);
 
 	CGameObject **ppGameObjects = new CGameObject*[*pnGameObjects];
+	v.reserve(*pnGameObjects);
 
 	CGameObject *pGameObject = NULL, *pObjectFound = NULL;
 	for (int i = 0; i < *pnGameObjects; i++)
@@ -157,9 +162,11 @@ CGameObject **LoadGameObjectsFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCo
 			strcpy_s(pstrFilePath + 7 + nObjectNameLength, 64 - 7 - nObjectNameLength, ".bin");
 			CMesh *pMesh = new CMesh(pd3dDevice, pd3dCommandList, pstrFilePath);
 			pGameObject->SetMesh(pMesh);
+			pGameObject->m_xmf3objectsize = ObjectSize;
 		}
 
 		ppGameObjects[i] = pGameObject;
+		v.push_back(ppGameObjects[i]);
 	}
 
 	::fclose(pFile);

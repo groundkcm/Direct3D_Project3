@@ -451,13 +451,22 @@ void CGameFramework::BuildObjects()
 	m_GameTimer.Reset();
 }
 
-CPlayer* v;
+extern std::vector<CGameObject*> v;
 
 void CGameFramework::Collision()
 {
 	m_pPlayer->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_pPlayer->GetPosition()), XMFLOAT3(20.0f, 20.0f, 4.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->m_pObjectCollided = NULL;
-	v = m_pPlayer;
+
+	for (int i = 0; i < v.size(); ++i) {
+		if (v[i]->m_xmOOBB.Intersects(m_pPlayer->m_xmOOBB)) {
+			m_pPlayer->SetPosition(XMFLOAT3(0.0f, 0.0f, 0.0f));
+			/*if (v[i]->GetPosition().x < m_pPlayer->GetPosition().x) m_pPlayer->MoveStrafe(1.0f);
+			else if (v[i]->GetPosition().x > m_pPlayer->GetPosition().x) m_pPlayer->MoveStrafe(-1.0f);
+			else if (v[i]->GetPosition().z < m_pPlayer->GetPosition().z) m_pPlayer->MoveForward(1.0f);
+			else if (v[i]->GetPosition().z > m_pPlayer->GetPosition().z) m_pPlayer->MoveForward(-1.0f);*/
+		}
+	}
 }
 
 void CGameFramework::ReleaseObjects()
@@ -510,6 +519,7 @@ void CGameFramework::ProcessInput()
 
 void CGameFramework::AnimateObjects()
 {
+	Collision();
 	if (m_pScene) m_pScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
 }
 

@@ -67,6 +67,8 @@ void CMesh::Render(ID3D12GraphicsCommandList *pd3dCommandList, UINT nSubset)
 	}
 }
 
+XMFLOAT3 ObjectSize;
+
 void CMesh::LoadMeshFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, char *pstrFileName)
 {
 #ifdef _WITH_TEXT_MESH
@@ -119,6 +121,7 @@ void CMesh::LoadMeshFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList
 		{
 			nReads = (UINT)::fread(&m_xmBoundingBox.Center, sizeof(float), 3, pFile);
 			nReads = (UINT)::fread(&m_xmBoundingBox.Extents, sizeof(float), 3, pFile);
+			ObjectSize = m_xmBoundingBox.Extents;
 		}
 		else if (!strcmp(pstrToken, "<Vertices>:"))
 		{
