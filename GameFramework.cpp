@@ -460,11 +460,10 @@ void CGameFramework::Collision()
 
 	for (int i = 0; i < v.size(); ++i) {
 		if (v[i]->m_xmOOBB.Intersects(m_pPlayer->m_xmOOBB)) {
-			m_pPlayer->SetPosition(XMFLOAT3(0.0f, 0.0f, 0.0f));
-			/*if (v[i]->GetPosition().x < m_pPlayer->GetPosition().x) m_pPlayer->MoveStrafe(1.0f);
-			else if (v[i]->GetPosition().x > m_pPlayer->GetPosition().x) m_pPlayer->MoveStrafe(-1.0f);
-			else if (v[i]->GetPosition().z < m_pPlayer->GetPosition().z) m_pPlayer->MoveForward(1.0f);
-			else if (v[i]->GetPosition().z > m_pPlayer->GetPosition().z) m_pPlayer->MoveForward(-1.0f);*/
+			if (v[i]->GetPosition().x < m_pPlayer->GetPosition().x) m_pPlayer->SetPosition(XMFLOAT3(v[i]->GetPosition().x + v[i]->m_xmf3objectsize.x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z));
+			else if (v[i]->GetPosition().x > m_pPlayer->GetPosition().x) m_pPlayer->SetPosition(XMFLOAT3(v[i]->GetPosition().x - v[i]->m_xmf3objectsize.x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z));
+			else if (v[i]->GetPosition().z < m_pPlayer->GetPosition().z) m_pPlayer->SetPosition(XMFLOAT3(m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, v[i]->GetPosition().z + v[i]->m_xmf3objectsize.z));
+			else if (v[i]->GetPosition().z > m_pPlayer->GetPosition().z) m_pPlayer->SetPosition(XMFLOAT3(m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, v[i]->GetPosition().z - v[i]->m_xmf3objectsize.z));
 		}
 	}
 }
