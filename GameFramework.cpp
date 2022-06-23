@@ -358,8 +358,8 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_F9:
 			ChangeSwapChainState();
 			break;
-		//case VK_NUMPAD1:
 		case '1':
+		case '2':
 			m_pScene->ChangeScene(m_pd3dDevice, m_pd3dCommandList, wParam);
 			break;
 		default:
@@ -455,15 +455,15 @@ extern std::vector<CGameObject*> v;
 
 void CGameFramework::Collision()
 {
-	m_pPlayer->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_pPlayer->GetPosition()), XMFLOAT3(20.0f, 20.0f, 4.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pPlayer->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_pPlayer->GetPosition()), XMFLOAT3(10.0f, 4.0f, 10.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->m_pObjectCollided = NULL;
 
 	for (int i = 0; i < v.size(); ++i) {
 		if (v[i]->m_xmOOBB.Intersects(m_pPlayer->m_xmOOBB)) {
-			if (v[i]->GetPosition().x < m_pPlayer->GetPosition().x) m_pPlayer->SetPosition(XMFLOAT3(v[i]->GetPosition().x + v[i]->m_xmf3objectsize.x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z));
+			/*if (v[i]->GetPosition().x < m_pPlayer->GetPosition().x) m_pPlayer->SetPosition(XMFLOAT3(v[i]->GetPosition().x + v[i]->m_xmf3objectsize.x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z));
 			else if (v[i]->GetPosition().x > m_pPlayer->GetPosition().x) m_pPlayer->SetPosition(XMFLOAT3(v[i]->GetPosition().x - v[i]->m_xmf3objectsize.x, m_pPlayer->GetPosition().y, m_pPlayer->GetPosition().z));
 			else if (v[i]->GetPosition().z < m_pPlayer->GetPosition().z) m_pPlayer->SetPosition(XMFLOAT3(m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, v[i]->GetPosition().z + v[i]->m_xmf3objectsize.z));
-			else if (v[i]->GetPosition().z > m_pPlayer->GetPosition().z) m_pPlayer->SetPosition(XMFLOAT3(m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, v[i]->GetPosition().z - v[i]->m_xmf3objectsize.z));
+			else if (v[i]->GetPosition().z > m_pPlayer->GetPosition().z) m_pPlayer->SetPosition(XMFLOAT3(m_pPlayer->GetPosition().x, m_pPlayer->GetPosition().y, v[i]->GetPosition().z - v[i]->m_xmf3objectsize.z));*/
 		}
 	}
 }
