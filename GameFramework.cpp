@@ -483,7 +483,7 @@ extern std::vector<CGameObject*> v;
 
 void CGameFramework::Collision()
 {
-	m_pPlayer->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_pPlayer->GetPosition()), XMFLOAT3(0.5f, 0.5f, 0.5f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+	m_pPlayer->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_pPlayer->GetPosition()), XMFLOAT3(0.1f, 0.1f, 0.1f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->m_pObjectCollided = NULL;
 
 	for (int i = 0; i < v.size(); ++i) {
