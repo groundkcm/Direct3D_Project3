@@ -517,7 +517,7 @@ void CGameFramework::ProcessInput()
 		if (pKeysBuffer['A'] & 0xF0) dwDirection |= DIR_LEFT;
 		if (pKeysBuffer['D'] & 0xF0) dwDirection |= DIR_RIGHT;
 		if (pKeysBuffer['E'] & 0xF0) dwDirection |= DIR_UP;
-		//if (pKeysBuffer['Q'] & 0xF0) dwDirection |= DIR_DOWN;
+		if (pKeysBuffer[VK_SPACE] & 0xF0) m_pPlayer->Move(dwDirection, 10.0f * m_GameTimer.GetTimeElapsed(), true);
 	}
 
 	float cxDelta = 0.0f, cyDelta = 0.0f;
@@ -540,7 +540,7 @@ void CGameFramework::ProcessInput()
 			else
 				m_pPlayer->Rotate(cyDelta, cxDelta, 0.0f);
 		}
-		if (dwDirection) m_pPlayer->Move(dwDirection, 50.0f * m_GameTimer.GetTimeElapsed(), true);
+		if (dwDirection) m_pPlayer->Move(dwDirection, 20.0f * m_GameTimer.GetTimeElapsed(), true);
 	}
 
 	m_pPlayer->Update(m_GameTimer.GetTimeElapsed());
