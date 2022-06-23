@@ -372,7 +372,10 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			break;
 		case 'N':
 			if (ntemp % 2) m_pScene->NightMode = true;
-			else  m_pScene->NightMode = false;
+			else {
+				m_pScene->DayMode = true;
+				m_pScene->NightMode = false;
+			}
 			++ntemp;
 			break;
 		case 'R':

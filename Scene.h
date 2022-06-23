@@ -74,6 +74,7 @@ public:
 
 	CPlayer						*m_pPlayer = NULL;
 	bool						NightMode = false;
+	bool						DayMode = false;
 	int							SceneNum = 2;
 
 protected:

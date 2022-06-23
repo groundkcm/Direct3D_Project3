@@ -18,7 +18,6 @@ void CScene::BuildLightsAndMaterials()
 	m_pLights = new LIGHTS;
 	::ZeroMemory(m_pLights, sizeof(LIGHTS));
 
-	//m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.034f, 0.034f, 0.034f, 1.0f);
 	m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
 
 	m_pLights->m_pLights[0].m_bEnable = true;
@@ -376,6 +375,86 @@ void CScene::AnimateObjects(float fTimeElapsed)
 		m_pLights->m_pLights[7].m_xmf3Position = XMFLOAT3(90.0f, 10.0f, -30.0f);
 		m_pLights->m_pLights[7].m_xmf3Direction = XMFLOAT3(90.0f, 0.0f, -30.0f);
 		m_pLights->m_pLights[7].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.001f, 0.0001f); 
+		m_pLights->m_pLights[7].m_fFalloff = 1.0f;
+	}
+	else if (DayMode)
+	{
+		m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+
+		m_pLights->m_pLights[0].m_bEnable = true;
+		m_pLights->m_pLights[0].m_nType = POINT_LIGHT;
+		m_pLights->m_pLights[0].m_fRange = 100.0f;
+		m_pLights->m_pLights[0].m_xmf4Ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+		m_pLights->m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
+		m_pLights->m_pLights[0].m_xmf4Specular = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.0f);
+		m_pLights->m_pLights[0].m_xmf3Position = XMFLOAT3(10.0f, 20.0f, 0.0f);
+		m_pLights->m_pLights[0].m_xmf3Direction = XMFLOAT3(0.0f, -1.0f, 0.0f);
+		m_pLights->m_pLights[0].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.001f, 0.0001f);
+		m_pLights->m_pLights[1].m_bEnable = true;
+		m_pLights->m_pLights[1].m_nType = SPOT_LIGHT;
+		m_pLights->m_pLights[1].m_fRange = 150.0f;
+		m_pLights->m_pLights[1].m_xmf4Ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[1].m_xmf4Diffuse = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[1].m_xmf4Specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
+		m_pLights->m_pLights[1].m_xmf3Position = XMFLOAT3(-50.0f, 20.0f, -5.0f);
+		m_pLights->m_pLights[1].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[1].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.01f, 0.0001f);
+		m_pLights->m_pLights[1].m_fFalloff = 8.0f;
+		m_pLights->m_pLights[1].m_fPhi = (float)cos(XMConvertToRadians(40.0f));
+		m_pLights->m_pLights[1].m_fTheta = (float)cos(XMConvertToRadians(20.0f));
+		m_pLights->m_pLights[2].m_bEnable = true;
+		m_pLights->m_pLights[2].m_nType = DIRECTIONAL_LIGHT;
+		m_pLights->m_pLights[2].m_xmf4Ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
+		m_pLights->m_pLights[2].m_xmf4Diffuse = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
+		m_pLights->m_pLights[2].m_xmf4Specular = XMFLOAT4(0.05f, 0.05f, 0.05f, 0.0f);
+		m_pLights->m_pLights[2].m_xmf3Direction = XMFLOAT3(1.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[3].m_bEnable = true;
+		m_pLights->m_pLights[3].m_nType = DIRECTIONAL_LIGHT;
+		m_pLights->m_pLights[3].m_xmf4Ambient = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+		m_pLights->m_pLights[3].m_xmf4Diffuse = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
+		m_pLights->m_pLights[3].m_xmf4Specular = XMFLOAT4(0.05f, 0.05f, 0.05f, 0.0f);
+		m_pLights->m_pLights[3].m_xmf3Direction = XMFLOAT3(0.0f, -1.0f, 1.0f);
+		m_pLights->m_pLights[4].m_bEnable = true;
+		m_pLights->m_pLights[4].m_nType = SPOT_LIGHT;
+		m_pLights->m_pLights[4].m_fRange = 30.0f;
+		m_pLights->m_pLights[4].m_xmf4Ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
+		m_pLights->m_pLights[4].m_xmf4Diffuse = XMFLOAT4(0.24f, 0.14f, 0.24f, 1.0f);
+		m_pLights->m_pLights[4].m_xmf4Specular = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
+		m_pLights->m_pLights[4].m_xmf3Position = XMFLOAT3(0.0f, 5.0f, -7.0f);
+		m_pLights->m_pLights[4].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[4].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.25f, 0.05f);
+		m_pLights->m_pLights[4].m_fFalloff = 1.0f;
+		m_pLights->m_pLights[4].m_fPhi = (float)cos(XMConvertToRadians(10.0f));
+		m_pLights->m_pLights[4].m_fTheta = (float)cos(XMConvertToRadians(5.0f));
+		m_pLights->m_pLights[5].m_bEnable = true;
+		m_pLights->m_pLights[5].m_nType = SPOT_LIGHT;
+		m_pLights->m_pLights[5].m_fRange = 100.0f;
+		m_pLights->m_pLights[5].m_xmf4Ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[5].m_xmf4Diffuse = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[5].m_xmf4Specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
+		m_pLights->m_pLights[5].m_xmf3Position = XMFLOAT3(100.0f, 10.0f, 10.0f);
+		m_pLights->m_pLights[5].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		m_pLights->m_pLights[5].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.001f, 0.0001f);
+		m_pLights->m_pLights[5].m_fFalloff = 1.0f;
+		m_pLights->m_pLights[6].m_bEnable = true;
+		m_pLights->m_pLights[6].m_nType = SPOT_LIGHT;
+		m_pLights->m_pLights[6].m_fRange = 100.0f;
+		m_pLights->m_pLights[6].m_xmf4Ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[6].m_xmf4Diffuse = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[6].m_xmf4Specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[6].m_xmf3Position = XMFLOAT3(130.0f, 30.0f, 30.0f);
+		m_pLights->m_pLights[6].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		m_pLights->m_pLights[6].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.001f, 0.0001f);
+		m_pLights->m_pLights[6].m_fFalloff = 1.0f;
+		m_pLights->m_pLights[7].m_bEnable = true;
+		m_pLights->m_pLights[7].m_nType = SPOT_LIGHT;
+		m_pLights->m_pLights[7].m_fRange = 100.0f;
+		m_pLights->m_pLights[7].m_xmf4Ambient = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[7].m_xmf4Diffuse = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[7].m_xmf4Specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
+		m_pLights->m_pLights[7].m_xmf3Position = XMFLOAT3(130.0f, 30.0f, 30.0f);
+		m_pLights->m_pLights[7].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		m_pLights->m_pLights[7].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.001f, 0.0001f);
 		m_pLights->m_pLights[7].m_fFalloff = 1.0f;
 	}
 
