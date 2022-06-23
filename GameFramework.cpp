@@ -573,7 +573,7 @@ void CGameFramework::FrameAdvance()
 	d3dRtvCPUDescriptorHandle.ptr += (m_nSwapChainBufferIndex * m_nRtvDescriptorIncrementSize);
 
 	//float pfClearColor[4] = { 0.0525f, 0.0525f, 0.0525f, 1.0f };
-	float pfClearColor[4] = { 0.1f, 0.25f, 0.5f, 1.0f };
+	float pfClearColor[4] = { 0.5f, 0.8f, 1.0f, 1.0f };
 	m_pd3dCommandList->ClearRenderTargetView(d3dRtvCPUDescriptorHandle, pfClearColor/*Colors::Azure*/, 0, NULL);
 
 	D3D12_CPU_DESCRIPTOR_HANDLE d3dDsvCPUDescriptorHandle = m_pd3dDsvDescriptorHeap->GetCPUDescriptorHandleForHeapStart();
