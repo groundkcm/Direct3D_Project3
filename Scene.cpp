@@ -99,7 +99,7 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 
 	CObjectsShader *pObjectShader = new CObjectsShader();
 	pObjectShader->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
-	pObjectShader->BuildObjects(pd3dDevice, pd3dCommandList, "Models/Scene2.bin");
+	pObjectShader->BuildObjects(pd3dDevice, pd3dCommandList, "Models/Scene.bin");
 	m_ppShaders[0] = pObjectShader;
 
 	BuildLightsAndMaterials();
