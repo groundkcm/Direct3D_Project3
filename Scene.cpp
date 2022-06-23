@@ -282,6 +282,7 @@ void CScene::AnimateObjects(float fTimeElapsed)
 		m_pLights->m_pLights[4].m_xmf3Position = Vector3::Add(m_pPlayer->GetPosition(), Vector3::Add(Vector3::ScalarProduct(m_pPlayer->GetLookVector(), -15.0f, false), XMFLOAT3(0.0f, 5.0f, 0.0f)));
 		m_pLights->m_pLights[4].m_xmf3Direction = m_pPlayer->GetLookVector();
 	}
+
 }
 
 void CScene::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera)

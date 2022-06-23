@@ -73,6 +73,7 @@ public:
 	void ReleaseUploadBuffers();
 
 	CPlayer						*m_pPlayer = NULL;
+	bool						NightMode = false;
 
 protected:
 	ID3D12RootSignature			*m_pd3dGraphicsRootSignature = NULL;

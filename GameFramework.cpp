@@ -340,6 +340,8 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 
 void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
+	static int rtemp, ntemp;
+
 	switch (nMessageID)
 	{
 	case WM_KEYUP:
@@ -361,6 +363,16 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case '1':
 		case '2':
 			m_pScene->ChangeScene(m_pd3dDevice, m_pd3dCommandList, wParam);
+			break;
+		case 'N':
+			if (ntemp % 2) m_pScene->NightMode = true;
+			else  m_pScene->NightMode = false;
+			++ntemp;
+			break;
+		case 'R':
+			if (rtemp % 2) m_pPlayer->SetPosition(XMFLOAT3(90.0f, 5.0f, 45.0f));		//1ÀÎÄª ¹Ù´Ú ±âÁØ
+			else  m_pPlayer->SetPosition(XMFLOAT3(160.0f, 50.0f, -10.0f));		//1ÀÎÄª ÇÏ´Ã ±âÁØ
+			++rtemp;
 			break;
 		default:
 			break;
@@ -437,6 +449,7 @@ void CGameFramework::BuildObjects()
 
 	CAirplanePlayer *pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
 	m_pScene->m_pPlayer = m_pPlayer = pAirplanePlayer;
+	m_pPlayer->Rotate(0.0f, -90.0f, 0.0f);
 	m_pCamera = m_pPlayer->GetCamera();
 
 	m_pd3dCommandList->Close();
@@ -519,6 +532,7 @@ void CGameFramework::ProcessInput()
 void CGameFramework::AnimateObjects()
 {
 	Collision();
+	
 	if (m_pScene) m_pScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
 }
 
@@ -572,8 +586,12 @@ void CGameFramework::FrameAdvance()
 	D3D12_CPU_DESCRIPTOR_HANDLE d3dRtvCPUDescriptorHandle = m_pd3dRtvDescriptorHeap->GetCPUDescriptorHandleForHeapStart();
 	d3dRtvCPUDescriptorHandle.ptr += (m_nSwapChainBufferIndex * m_nRtvDescriptorIncrementSize);
 
-	//float pfClearColor[4] = { 0.0525f, 0.0525f, 0.0525f, 1.0f };
-	float pfClearColor[4] = { 0.5f, 0.8f, 1.0f, 1.0f };
+	float pfClearColor[4];
+	if (m_pScene->NightMode)
+		pfClearColor[0] = 0.0525f, pfClearColor[1] = 0.0525f, pfClearColor[2] = 0.0525f, pfClearColor[3] = 1.0f;
+	else
+		pfClearColor[0] = 0.5f, pfClearColor[1] = 0.8f, pfClearColor[2] = 1.0f, pfClearColor[3] = 1.0f;
+
 	m_pd3dCommandList->ClearRenderTargetView(d3dRtvCPUDescriptorHandle, pfClearColor/*Colors::Azure*/, 0, NULL);
 
 	D3D12_CPU_DESCRIPTOR_HANDLE d3dDsvCPUDescriptorHandle = m_pd3dDsvDescriptorHeap->GetCPUDescriptorHandleForHeapStart();

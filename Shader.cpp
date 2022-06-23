@@ -290,10 +290,10 @@ void CObjectsShader::ReleaseShaderVariables()
 
 void CObjectsShader::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, char *pstrFileName, void *pContext)
 {
-	int nSceneTextures = 0;
 	m_ppObjects = ::LoadGameObjectsFromFile(pd3dDevice, pd3dCommandList, pstrFileName, &m_nObjects);
 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
+	Collision();
 }
 
 void CObjectsShader::ChangeScene(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, char* pstrFileName)
@@ -328,7 +328,6 @@ void CObjectsShader::Collision()
 
 void CObjectsShader::AnimateObjects(float fTimeElapsed)
 {
-	Collision();
 	for (int j = 0; j < m_nObjects; j++)
 	{
 		m_ppObjects[j]->Animate(fTimeElapsed);
