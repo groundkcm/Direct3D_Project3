@@ -52,9 +52,9 @@ public:
 	bool OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 	bool OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 
-	void BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList);
+	void BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, int sceneNum);
 	void ReleaseObjects();
-	void ChangeScene(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, WPARAM sceneNum);
+	void ChangeScene(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, int sceneNum);
 
 	void BuildLightsAndMaterials();
 
@@ -74,6 +74,7 @@ public:
 
 	CPlayer						*m_pPlayer = NULL;
 	bool						NightMode = false;
+	int							SceneNum = 2;
 
 protected:
 	ID3D12RootSignature			*m_pd3dGraphicsRootSignature = NULL;

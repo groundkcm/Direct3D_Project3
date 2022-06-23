@@ -53,7 +53,7 @@ bool CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 	CreateSwapChain();
 	CreateDepthStencilView();
 
-	BuildObjects();
+	BuildObjects(NULL);
 
 	return(true);
 }
@@ -361,8 +361,14 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			ChangeSwapChainState();
 			break;
 		case '1':
+			if (m_pScene->SceneNum == 2)
+				ChangeScene(m_pd3dDevice, m_pd3dCommandList, 1);
+			m_pScene->SceneNum = 1;
+			break;
 		case '2':
-			m_pScene->ChangeScene(m_pd3dDevice, m_pd3dCommandList, wParam);
+			if (m_pScene->SceneNum == 1)
+				ChangeScene(m_pd3dDevice, m_pd3dCommandList, 2);
+			m_pScene->SceneNum = 2;
 			break;
 		case 'N':
 			if (ntemp % 2) m_pScene->NightMode = true;
@@ -440,12 +446,12 @@ void CGameFramework::OnDestroy()
 #endif
 }
 
-void CGameFramework::BuildObjects()
+void CGameFramework::BuildObjects(int sceneNum)
 {
 	m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
 
 	m_pScene = new CScene();
-	if (m_pScene) m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
+	if (m_pScene) m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList, sceneNum);
 
 	CAirplanePlayer *pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
 	m_pScene->m_pPlayer = m_pPlayer = pAirplanePlayer;
@@ -462,6 +468,32 @@ void CGameFramework::BuildObjects()
 	if (m_pPlayer) m_pPlayer->ReleaseUploadBuffers();
 
 	m_GameTimer.Reset();
+}
+
+void CGameFramework::ChangeScene(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, int sceneNum)
+{
+	ReleaseObjects();
+
+	m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
+
+	m_pScene = new CScene();
+	if (m_pScene) m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList, sceneNum);
+
+	CAirplanePlayer* pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
+	m_pScene->m_pPlayer = m_pPlayer = pAirplanePlayer;
+	m_pPlayer->Rotate(0.0f, -90.0f, 0.0f);
+	m_pCamera = m_pPlayer->GetCamera();
+
+	m_pd3dCommandList->Close();
+	ID3D12CommandList* ppd3dCommandLists[] = { m_pd3dCommandList };
+	m_pd3dCommandQueue->ExecuteCommandLists(1, ppd3dCommandLists);
+
+	WaitForGpuComplete();
+
+	if (m_pScene) m_pScene->ReleaseUploadBuffers();
+	if (m_pPlayer) m_pPlayer->ReleaseUploadBuffers();
+
+	//m_GameTimer.Reset();
 }
 
 extern std::vector<CGameObject*> v;
