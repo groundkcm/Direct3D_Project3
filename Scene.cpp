@@ -68,6 +68,8 @@ void CScene::BuildLightsAndMaterials()
 	m_pLights->m_pLights[5].m_bEnable = false;
 	m_pLights->m_pLights[6].m_bEnable = false;
 	m_pLights->m_pLights[7].m_bEnable = false;
+	m_pLights->m_pLights[8].m_bEnable = false;
+	m_pLights->m_pLights[9].m_bEnable = false;
 
 	m_pMaterials = new MATERIALS;
 	::ZeroMemory(m_pMaterials, sizeof(MATERIALS));
@@ -349,6 +351,26 @@ void CScene::AnimateObjects(float fTimeElapsed)
 		m_pLights->m_pLights[7].m_xmf3Direction = XMFLOAT3(72.0f, 0.0f, -55.0f);
 		m_pLights->m_pLights[7].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.01f, 0.001f);
 		m_pLights->m_pLights[7].m_fFalloff = 1.0f;
+		m_pLights->m_pLights[8].m_bEnable = true;
+		m_pLights->m_pLights[8].m_nType = SPOT_LIGHT;
+		m_pLights->m_pLights[8].m_fRange = 8.0f;
+		m_pLights->m_pLights[8].m_xmf4Ambient = XMFLOAT4(0.01f, 0.01f, 0.01f, 1.0f);
+		m_pLights->m_pLights[8].m_xmf4Diffuse = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
+		m_pLights->m_pLights[8].m_xmf4Specular = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.0f);
+		m_pLights->m_pLights[8].m_xmf3Position = XMFLOAT3(12.0f, 1.0f, 55.0f);
+		m_pLights->m_pLights[8].m_xmf3Direction = XMFLOAT3(12.0f, 0.0f, 55.0f);
+		m_pLights->m_pLights[8].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.01f, 0.001f);
+		m_pLights->m_pLights[8].m_fFalloff = 1.0f;
+		m_pLights->m_pLights[9].m_bEnable = true;
+		m_pLights->m_pLights[9].m_nType = SPOT_LIGHT;
+		m_pLights->m_pLights[9].m_fRange = 8.0f;
+		m_pLights->m_pLights[9].m_xmf4Ambient = XMFLOAT4(0.01f, 0.01f, 0.01f, 1.0f);
+		m_pLights->m_pLights[9].m_xmf4Diffuse = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
+		m_pLights->m_pLights[9].m_xmf4Specular = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.0f);
+		m_pLights->m_pLights[9].m_xmf3Position = XMFLOAT3(12.0f, 1.0f, -55.0f);
+		m_pLights->m_pLights[9].m_xmf3Direction = XMFLOAT3(12.0f, 0.0f, -55.0f);
+		m_pLights->m_pLights[9].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.01f, 0.001f);
+		m_pLights->m_pLights[9].m_fFalloff = 1.0f;
 	}
 	else if (DayMode)
 	{
@@ -402,6 +424,8 @@ void CScene::AnimateObjects(float fTimeElapsed)
 		m_pLights->m_pLights[5].m_bEnable = false;
 		m_pLights->m_pLights[6].m_bEnable = false;
 		m_pLights->m_pLights[7].m_bEnable = false;
+		m_pLights->m_pLights[8].m_bEnable = false;
+		m_pLights->m_pLights[9].m_bEnable = false;
 	}
 
 }
