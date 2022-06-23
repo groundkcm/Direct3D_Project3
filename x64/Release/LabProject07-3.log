@@ -1,16 +1,7 @@
-﻿  stdafx.cpp
-  Camera.cpp
-  GameFramework.cpp
-  LabProject07-3.cpp
-  Mesh.cpp
-  Object.cpp
-  Player.cpp
-  Scene.cpp
-  Shader.cpp
-  Timer.cpp
+﻿  Shader.cpp
   코드를 생성하고 있습니다.
-  86 of 299 functions (28.8%) were compiled, the rest were copied from previous compilation.
-    32 functions were new in current compilation
-    8 functions had inline decision re-evaluated but remain unchanged
+  0 of 269 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    28 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   LabProject07-3.vcxproj -> C:\Project\Direct3D_Project3\x64\Release\LabProject07-3.exe

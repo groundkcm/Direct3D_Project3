@@ -4,6 +4,8 @@
 
 #include "stdafx.h"
 #include "Shader.h"
+#include "Player.h"
+#include <vector>
 
 CShader::CShader()
 {
@@ -313,6 +315,29 @@ void CObjectsShader::ReleaseObjects()
 			if (m_ppObjects[j]) delete m_ppObjects[j];
 		}
 		delete[] m_ppObjects;
+	}
+}
+
+extern CPlayer* v;
+
+void CObjectsShader::Collision()
+{
+	for (int i = 0; i < m_nObjects; ++i) {
+		m_ppObjects[i]->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_ppObjects[i]->GetPosition()), XMFLOAT3(20.0f, 20.0f, 4.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+		m_ppObjects[i]->m_pObjectCollided = NULL;
+	}
+
+	for (int i = 0; i < m_nObjects; ++i) {
+		if (m_ppObjects[i]->m_xmOOBB.Intersects(v->m_xmOOBB)) {
+		}
+		for (int j = (i + 1); j < m_nObjects; j++)
+		{
+			if (m_ppObjects[i]->m_xmOOBB.Intersects(m_ppObjects[j]->m_xmOOBB))
+			{
+				m_ppObjects[i]->m_pObjectCollided = m_ppObjects[j];
+				m_ppObjects[j]->m_pObjectCollided = m_ppObjects[i];
+			}
+		}
 	}
 }
 
